@@ -3,14 +3,55 @@
 const Procedure = require('../models/Procedure')
 
 // Full-text search
-function textSearch(q, skip, limit) {
-  return Procedure.find({ $text: { $search: q } })
-    .skip(skip)
-    .limit(limit)
+async function textSearch(q, skip, limit) {
+  try {
+    const results = await Procedure.aggregate([
+      {
+        $search: {
+          index: "default",
+          text: {
+            query: q,
+            path: ["commonName", "officialName", "keywords", "description"]
+          }
+        }
+      },
+      {
+        $addFields: {
+          bm25_score: { $meta: "searchScore" }
+        }
+      },
+      { $skip: skip },
+      { $limit: limit }
+    ])
+    return results.map(doc => Procedure.hydrate(doc))
+  } catch (err) {
+    // Graceful fallback for local development or missing index
+    return Procedure.find({ $text: { $search: q } })
+      .skip(skip)
+      .limit(limit)
+  }
 }
 
-function countTextSearch(q) {
-  return Procedure.countDocuments({ $text: { $search: q } })
+async function countTextSearch(q) {
+  try {
+    const results = await Procedure.aggregate([
+      {
+        $search: {
+          index: "default",
+          text: {
+            query: q,
+            path: ["commonName", "officialName", "keywords", "description"]
+          }
+        }
+      },
+      {
+        $count: "total"
+      }
+    ])
+    return results.length > 0 ? results[0].total : 0;
+  } catch (err) {
+    return Procedure.countDocuments({ $text: { $search: q } })
+  }
 }
 
 // Generic find
@@ -38,13 +79,37 @@ function findByCategory(category, limit) {
 }
 
 // Typeahead autocomplete
-function autocompleteSearch(q, limit) {
-  return Procedure.find(
-    { $text: { $search: q } },
-    { score: { $meta: 'textScore' }, commonName: 1, category: 1, cghsRate: 1 }
-  )
-    .sort({ score: { $meta: 'textScore' } })
-    .limit(limit)
+async function autocompleteSearch(q, limit) {
+  try {
+    const results = await Procedure.aggregate([
+      {
+        $search: {
+          index: "default",
+          text: {
+            query: q,
+            path: ["commonName", "officialName"]
+          }
+        }
+      },
+      {
+        $project: {
+          score: { $meta: "searchScore" },
+          commonName: 1,
+          category: 1,
+          cghsRate: 1
+        }
+      },
+      { $limit: limit }
+    ])
+    return results.map(doc => Procedure.hydrate(doc))
+  } catch (err) {
+    return Procedure.find(
+      { $text: { $search: q } },
+      { score: { $meta: 'textScore' }, commonName: 1, category: 1, cghsRate: 1 }
+    )
+      .sort({ score: { $meta: 'textScore' } })
+      .limit(limit)
+  }
 }
 
 // Similar procedures
