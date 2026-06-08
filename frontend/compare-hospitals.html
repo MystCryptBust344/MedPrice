@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compare Hospitals — MedPrice</title>
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/compare.css"/>
+  <style>
+    .comp-matrix-grid {
+      display: grid;
+      grid-template-columns: 200px repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      margin-top: 20px;
+    }
+    .comp-cell {
+      background: #ffffff;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+    .comp-cell.header-cell {
+      background: #f8fafc;
+      font-weight: 600;
+      justify-content: flex-start;
+      text-align: left;
+      color: #475569;
+    }
+    .comp-cell.hosp-header {
+      background: #0f172a;
+      color: #ffffff;
+      font-weight: 700;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .hosp-header-title {
+      font-size: 1.1rem;
+      color: #f8fafc;
+    }
+    .comp-rating {
+      color: #fbbf24;
+      font-size: 1rem;
+    }
+    .comp-highlight {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Med<span>Price</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="results.html">Browse</a>
+      <a href="compare.html">Compare</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- breadcrumb -->
+    <nav class="breadcrumb" aria-label="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="bc-sep">›</span>
+      <a href="results.html">Browse</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">Compare Hospitals</span>
+    </nav>
+
+    <div class="compare-header" style="margin-bottom: 20px;">
+      <h1>🏥 Side-by-Side Hospital Comparison</h1>
+      <p style="color: #475569; margin-top: 4px;">Compare ratings, pricing efficiency, and scope of services across your selected providers.</p>
+    </div>
+
+    <button class="btn-outline" onclick="history.back()" style="margin-bottom: 20px;">← Back</button>
+
+    <div id="loader" class="loading"><div class="spinner"></div><p>Aggregating pricing matrices…</p></div>
+    <div id="error-msg" class="error-msg" style="display:none"></div>
+
+    <div id="compare-matrix-wrapper" style="display:none">
+      <div id="comp-matrix" class="comp-matrix-grid"></div>
+    </div>
+
+  </div>
+
+  <footer>MedPrice comparative aggregates — verify rates prior to registration.</footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/compare-hospitals.js"></script>
+</body>
+</html>

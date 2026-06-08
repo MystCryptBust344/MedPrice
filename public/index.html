@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MedPrice</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="logo">Med<span>Price</span></div>
+    <div class="header-sub">CGHS Benchmarked Pricing</div>
+  </header>
+
+  <div id="stats-bar">
+    <div>Procedures: <strong id="stat-procedures">–</strong></div>
+    <div>Hospitals: <strong id="stat-hospitals">–</strong></div>
+    <div>Max markup seen: <strong id="stat-markup">–</strong></div>
+  </div>
+
+  <main>
+
+    <div class="search-card">
+      <h1>Find fair prices for any procedure</h1>
+      <p>Compare what hospitals charge vs what the government says it should cost.</p>
+
+      <div class="search-row">
+        <input type="text" id="search-input" placeholder="e.g. knee replacement, bypass…" autocomplete="off" />
+        <button id="search-btn">Search</button>
+      </div>
+
+      <div class="chips">
+        <span class="chip" data-query="appendix">Appendix</span>
+        <span class="chip" data-query="knee">Knee Replacement</span>
+        <span class="chip" data-query="gallbladder">Gallbladder</span>
+        <span class="chip" data-query="cataract">Cataract</span>
+        <span class="chip" data-query="bypass">Heart Bypass</span>
+      </div>
+    </div>
+
+    <div id="error-msg"></div>
+    <div id="loader">
+      <div class="spinner"></div>
+      <p>Fetching prices…</p>
+    </div>
+
+    <div id="results-section" style="display:none">
+      <div class="result-header">
+        <h2 id="result-name"></h2>
+        <div class="cghs-tag" id="result-cghs"></div>
+      </div>
+
+      <div id="hospital-list"></div>
+
+      <div id="insight-box">
+        <div id="insight-text"></div>
+      </div>
+    </div>
+
+		<!-- PDF Upload Section -->
+	<div class="upload-card" id="upload-section">
+  		<h2>Upload CGHS Rate PDF</h2>
+  		<p>Upload any CGHS rate list PDF — Gemini will extract all procedures automatically.</p>
+
+  		<div class="upload-area" id="upload-area">
+    		<input type="file" id="pdf-input" accept=".pdf" style="display:none" />
+    		<div id="upload-placeholder">
+      		<div class="upload-icon">📄</div>
+      		<p>Click to select a PDF</p>
+      		<span>CGHS rate lists, hospital empanelment PDFs</span>
+    		</div>
+    		<div id="upload-filename" style="display:none"></div>
+  		</div>
+
+  		<button id="upload-btn" disabled>Upload & Extract</button>
+
+  		<div id="upload-status" style="display:none"></div>
+  		<div id="upload-result" style="display:none"></div>
+	</div>
+  </main>
+
+  <footer>
+    Data from CGHS rate schedules. For reference only for now.
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

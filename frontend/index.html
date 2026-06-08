@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MedPrice — Healthcare Pricing</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Med<span>Price</span></a>
+    <form class="nav-search" id="nav-search-form" autocomplete="off">
+      <div class="nav-search-wrap">
+        <input type="text" id="nav-q" placeholder="Search procedure…" autocomplete="off" />
+        <div id="nav-autocomplete-dropdown" class="ac-dropdown" style="display:none"></div>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="results.html">Browse</a>
+      <a href="compare.html">Compare</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="home-page">
+
+    <!-- hero -->
+    <div class="hero">
+      <div class="hero-badge">🤖 Powered by Groq Llama 3 &nbsp;·&nbsp; 🏥 CGHS Benchmarked Data</div>
+      <h1>Your AI healthcare<br><em>cost concierge</em></h1>
+      <p>Ask me anything — "How much does knee surgery cost?"<br>I'll search our database and give you a grounded, real answer.</p>
+
+      <!-- Chat widget -->
+      <div class="chat-widget">
+
+        <!-- Layout: sidebar + main -->
+        <div class="chat-layout">
+
+          <!-- ── Sidebar: thread list ── -->
+          <div class="chat-sidebar" id="chat-sidebar">
+            <div class="chat-sidebar-header">
+              <span class="chat-sidebar-label">Chats</span>
+              <button id="new-chat-btn" title="Start a new chat">+ New</button>
+            </div>
+            <div class="chat-thread-list" id="chat-thread-list"></div>
+          </div>
+
+          <!-- ── Main chat area ── -->
+          <div class="chat-main">
+
+            <!-- Header -->
+            <div class="chat-header">
+              <button id="sidebar-toggle" title="Toggle chats sidebar">☰</button>
+              <span class="chat-header-icon">🩺</span>
+              <div class="chat-header-text">
+                <div class="chat-title">MedPrice AI</div>
+                <div class="chat-sub" id="chat-header-sub">Healthcare cost assistant · Llama 3 via Groq</div>
+              </div>
+              <div class="chat-online-dot"></div>
+            </div>
+
+            <!-- Chat history -->
+            <div class="chat-history" id="chat-history">
+              <!-- Messages rendered by chat.js -->
+            </div>
+
+            <!-- Quick-start chips -->
+            <div class="chat-chips">
+              <span class="chat-chip">💉 How much is knee surgery?</span>
+              <span class="chat-chip">🧠 Cheapest MRI in Delhi?</span>
+              <span class="chat-chip">❤️ Heart bypass cost?</span>
+              <span class="chat-chip">👁️ Cataract surgery fair price?</span>
+              <span class="chat-chip">🩻 CT scan price range?</span>
+            </div>
+
+            <!-- Input bar -->
+            <form class="chat-input-row" id="chat-form" autocomplete="off">
+              <input type="text" id="chat-input" placeholder="Ask about any procedure or hospital…" autocomplete="off"/>
+              <button type="submit" id="chat-send-btn">Send ➤</button>
+            </form>
+
+          </div><!-- /.chat-main -->
+        </div><!-- /.chat-layout -->
+      </div><!-- /.chat-widget -->
+    </div>
+
+    <!-- stats grid -->
+    <div class="stats-grid" id="stats-grid" style="display:none">
+      <div class="stat-card stat-card-green">
+        <div class="stat-value" id="stat-procedures">–</div>
+        <div class="stat-label">Procedures tracked</div>
+      </div>
+      <div class="stat-card stat-card-blue">
+        <div class="stat-value" id="stat-hospitals">–</div>
+        <div class="stat-label">Hospital entries</div>
+      </div>
+      <div class="stat-card stat-card-red">
+        <div class="stat-value" id="stat-markup">–</div>
+        <div class="stat-label">Highest markup seen</div>
+        <div class="stat-sub" id="stat-markup-proc"></div>
+      </div>
+      <div class="stat-card stat-card-amber">
+        <div class="stat-value">CGHS 2024</div>
+        <div class="stat-label">Data source</div>
+        <div class="stat-sub">Ministry of Health</div>
+      </div>
+    </div>
+
+    <!-- categories -->
+    <div class="section-label" style="margin-top:2rem">Browse by category</div>
+    <div class="category-grid">
+      <div class="category-card" style="background:#fdecea" data-cat="Surgery">
+        <div class="cat-icon">🔬</div>
+        <div class="cat-name">Surgery</div>
+        <div class="cat-count" id="cat-count-Surgery">– procedures</div>
+      </div>
+      <div class="category-card" style="background:#e0f2fe" data-cat="Diagnostic">
+        <div class="cat-icon">🩻</div>
+        <div class="cat-name">Diagnostic</div>
+        <div class="cat-count" id="cat-count-Diagnostic">– procedures</div>
+      </div>
+      <div class="category-card" style="background:#fef3c7" data-cat="Therapy">
+        <div class="cat-icon">💊</div>
+        <div class="cat-name">Therapy</div>
+        <div class="cat-count" id="cat-count-Therapy">– procedures</div>
+      </div>
+      <div class="category-card" style="background:#e8f5ee" data-cat="Consultation">
+        <div class="cat-icon">🩺</div>
+        <div class="cat-name">Consultation</div>
+        <div class="cat-count" id="cat-count-Consultation">– procedures</div>
+      </div>
+      <div class="category-card" style="background:#f3e8ff" data-cat="Other">
+        <div class="cat-icon">📋</div>
+        <div class="cat-name">Other</div>
+        <div class="cat-count" id="cat-count-Other">– procedures</div>
+      </div>
+    </div>
+
+    <!-- quick links -->
+    <div class="quick-links">
+      <div class="ql-card" onclick="window.location='compare.html'">
+        <div class="ql-icon">⚖️</div>
+        <div>
+          <div class="ql-title">Compare Procedures</div>
+          <div class="ql-sub">Side-by-side cost comparison</div>
+        </div>
+      </div>
+      <div class="ql-card" onclick="window.location='dashboard.html'">
+        <div class="ql-icon">📊</div>
+        <div>
+          <div class="ql-title">Price Dashboard</div>
+          <div class="ql-sub">Analytics and markup insights</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    Data from CGHS rate schedules. For reference only — verify with your hospital.
+  </footer>
+
+  <script src="js/pageload.js"></script>
+  <script src="js/mascot.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/nav-search.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

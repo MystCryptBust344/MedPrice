@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Browse Procedures — MedPrice</title>
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/results.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Med<span>Price</span></a>
+    <form class="nav-search" id="nav-search-form" autocomplete="off">
+      <div class="nav-search-wrap">
+        <input type="text" id="nav-q" placeholder="Search procedure…" autocomplete="off"/>
+        <div id="nav-autocomplete-dropdown" class="ac-dropdown" style="display:none"></div>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="results.html" class="active">Browse</a>
+      <a href="compare.html">Compare</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- breadcrumb -->
+    <nav class="breadcrumb" id="breadcrumb" aria-label="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="bc-sep">›</span>
+      <span id="bc-current" class="bc-current">All Procedures</span>
+    </nav>
+
+    <!-- search + meta -->
+    <div class="results-top">
+      <input type="text" id="search-input" class="results-input" placeholder="Refine search…"/>
+      <div id="results-meta" class="results-meta"></div>
+    </div>
+
+    <!-- filter bar -->
+    <div class="filter-bar">
+      <div class="filter-chips" id="filter-chips">
+        <button class="filter-chip active" data-cat="">All</button>
+        <button class="filter-chip" data-cat="Surgery">Surgery</button>
+        <button class="filter-chip" data-cat="Diagnostic">Diagnostic</button>
+        <button class="filter-chip" data-cat="Therapy">Therapy</button>
+        <button class="filter-chip" data-cat="Consultation">Consultation</button>
+        <button class="filter-chip" data-cat="Other">Other</button>
+      </div>
+      
+      <!-- City Select Dropdown -->
+      <select id="city-select" class="sort-select" title="Filter procedures by city">
+        <option value="">All India</option>
+        <option value="Delhi">Delhi NCR</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Kolkata">Kolkata</option>
+      </select>
+
+      <select id="sort-select" class="sort-select">
+        <option value="">Default</option>
+        <option value="price_asc">Price: Low to High</option>
+        <option value="price_desc">Price: High to Low</option>
+        <option value="name">Name A–Z</option>
+      </select>
+      
+      <button id="near-me-btn" class="near-me-btn" title="Find procedures near your location">
+        📍 Near Me
+      </button>
+      <span id="geo-status" class="geo-status" style="display:none"></span>
+    </div>
+
+    <!-- compare bar (hidden until items selected) -->
+    <div id="compare-bar" class="compare-bar" style="display:none">
+      <span id="compare-count">0 selected</span>
+      <div id="compare-names" class="compare-names"></div>
+      <button class="btn" id="compare-btn">Compare Now →</button>
+      <button class="btn-outline" id="compare-clear">Clear</button>
+    </div>
+
+    <div id="error-msg" class="error-msg"></div>
+    <div id="loader" class="loading"><div class="spinner"></div><p>Fetching from database…</p></div>
+    <div id="empty-msg" class="loading" style="color:#1e293b">No procedures found — try a different term.</div>
+
+    <!-- cards grid -->
+    <div id="proc-grid" class="proc-grid"></div>
+
+    <!-- Hospitals Near Me section (shown only when Near Me is active) -->
+    <div id="hospital-nearby-section" style="display:none">
+      <div class="nearby-header">
+        <div>
+          <h2 class="nearby-title">🏥 Hospitals Near You</h2>
+          <p id="nearby-subtitle" class="nearby-sub">Sorted by distance from your location</p>
+        </div>
+        
+        <div class="nearby-actions" style="display: flex; gap: 10px;">
+          <!-- Hospital Compare Cart Indicator -->
+          <div id="hosp-compare-bar" class="compare-bar" style="display:none; position: static; box-shadow: none; padding: 0 10px; background: transparent; border: none;">
+            <span id="hosp-compare-count" style="color: #475569;">0 selected</span>
+            <button class="btn" id="hosp-compare-btn">Compare Hospitals →</button>
+          </div>
+          <button id="nearby-back-btn" class="btn-outline">← Back to all procedures</button>
+        </div>
+      </div>
+      <div id="hospital-nearby-grid" class="hospital-nearby-grid"></div>
+    </div>
+
+    <!-- pagination -->
+    <div id="pagination" class="pagination" style="display:none">
+      <button class="btn-outline" id="prev-btn">← Prev</button>
+      <span id="page-info">Page 1</span>
+      <button class="btn-outline" id="next-btn">Next →</button>
+    </div>
+
+  </div>
+
+  <footer>Data from CGHS rate schedules. For reference only.</footer>
+
+  <script src="js/pageload.js"></script>
+  <script src="js/mascot.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/nav-search.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/results.js"></script>
+</body>
+</html>

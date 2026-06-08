@@ -1,0 +1,31 @@
+# Node dependencies
+node_modules/
+
+# Environment files with secrets — NEVER commit these
+backend/.env
+.env
+
+# Frontend config — contains environment-specific API URLs
+# Use frontend/js/config.example.js as the template
+frontend/js/config.js
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Eclipse project files (if not needed in repo)
+.classpath
+.project
+.settings/
+target/
+
+# Scratch directory
+scratch/

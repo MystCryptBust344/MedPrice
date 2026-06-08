@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compare Procedures — MedPrice</title>
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/compare.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Med<span>Price</span></a>
+    <form class="nav-search" id="nav-search-form" autocomplete="off">
+      <div class="nav-search-wrap">
+        <input type="text" id="nav-q" placeholder="Search procedure…" autocomplete="off"/>
+        <div id="nav-autocomplete-dropdown" class="ac-dropdown" style="display:none"></div>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="results.html">Browse</a>
+      <a href="compare.html" class="active">Compare</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <h1 class="page-title">Compare Procedures</h1>
+    <p class="page-sub">Select up to 3 procedures to compare side by side</p>
+
+    <div class="compare-search-wrap">
+      <input type="text" id="compare-search" class="compare-search-input" placeholder="Add a procedure to compare…"/>
+      <div id="search-dropdown" class="search-dropdown" style="display:none"></div>
+    </div>
+
+    <div id="loader" class="loading"><div class="spinner"></div></div>
+    <div id="error-msg" class="error-msg"></div>
+
+    <div id="compare-empty" class="compare-empty" style="display:none">
+      Search for procedures above, or go to
+      <a href="results.html" style="color:#1a7a4a">Browse</a>
+      and click "+ Compare" on any card.
+    </div>
+
+    <div id="compare-insights" style="display:none"></div>
+    <div id="compare-table-wrap" style="display:none"></div>
+
+  </div>
+
+  <footer>Data from CGHS rate schedules. For reference only.</footer>
+
+  <script src="js/pageload.js"></script>
+  <script src="js/mascot.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/nav-search.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/compare.js"></script>
+</body>
+</html>

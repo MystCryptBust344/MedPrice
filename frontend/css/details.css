@@ -1,0 +1,89 @@
+/* ── Details Page ── */
+.back-btn { background: none; border: none; color: var(--accent-mint); font-size: 0.9rem; cursor: pointer; margin-bottom: 1rem; padding: 0; font-weight: 600; transition: color 0.2s ease; }
+.back-btn:hover { color: var(--accent-mint-dark); }
+
+.detail-header { margin-bottom: 0; }
+.detail-title    { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; margin-bottom: 6px; color: var(--text-primary); }
+.detail-official { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
+.detail-desc     { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+.detail-meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding-top: 1rem; border-top: 1px solid var(--border-subtle); margin-top: 1rem; }
+.meta-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+.meta-value { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); }
+.meta-value.green { color: var(--accent-mint); }
+
+.insight-box { background: rgba(0,230,118,0.04); border: 1px solid rgba(0,230,118,0.2); border-radius: 10px; padding: 1.2rem; font-size: 0.9rem; color: var(--text-primary); line-height: 1.8; }
+
+/* ── Hospital Table with sliding left-border hover ── */
+.hosp-table-wrap { overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: 10px; background: var(--bg-surface); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.hosp-table { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
+.hosp-table th { text-align: left; padding: 10px 14px; background: rgba(255,255,255,0.03); color: var(--text-muted); font-size: 0.73rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1.5px solid var(--border-subtle); white-space: nowrap; }
+
+.hosp-table tbody tr { position: relative; transition: background 0.2s ease; }
+.hosp-table tbody tr::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent-mint); transform: scaleY(0); transform-origin: top; transition: transform 200ms ease; }
+.hosp-table tbody tr:hover::before { transform: scaleY(1); }
+.hosp-table tbody tr:hover { background: linear-gradient(90deg, rgba(0,230,118,0.04) 0%, transparent 50%); }
+
+.hosp-table td { padding: 12px 14px; border-bottom: 1px solid var(--border-subtle); vertical-align: middle; color: var(--text-primary); }
+.hosp-table tr:last-child td { border-bottom: none; }
+.hosp-table .row-best td { background: rgba(0,230,118,0.06); }
+
+/* ── Price Corridor Bar ── */
+.price-corridor-wrap { margin-top: 6px; }
+.price-corridor-track { position: relative; height: 6px; background: rgba(255,255,255,0.05); border-radius: 999px; width: 120px; }
+.price-corridor-fill { position: absolute; height: 100%; background: linear-gradient(90deg, #00e676, #00b8d4); border-radius: 999px; box-shadow: 0 0 6px rgba(0,230,118,0.3); }
+.price-corridor-dot { position: absolute; width: 10px; height: 10px; background: #00e676; border-radius: 50%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 6px rgba(0,230,118,0.8); animation: dotPulse 2s ease-in-out infinite; }
+@keyframes dotPulse { 0%,100% { box-shadow: 0 0 4px rgba(0,230,118,0.8); } 50% { box-shadow: 0 0 10px rgba(0,230,118,1); } }
+.price-corridor-labels { display: flex; justify-content: space-between; font-size: 0.62rem; color: var(--text-muted); margin-top: 3px; width: 120px; }
+
+/* ── Markup Badge Pills ── */
+.best-badge, .badge-markup-fair { background: rgba(0,230,118,0.12); color: #00e676; border: 1px solid rgba(0,230,118,0.25); display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; margin-left: 6px; }
+.badge-markup-mid  { background: rgba(255,179,0,0.14); color: #FFB300; border: 1px solid rgba(255,179,0,0.28); display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; }
+.badge-markup-high { background: rgba(255,72,66,0.14);  color: #FF4842; border: 1px solid rgba(255,72,66,0.28);  display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; }
+
+.stars { color: #f59e0b; font-size: 0.75rem; letter-spacing: 1px; }
+.saving-neg { color: #ff5252; font-size: 0.82rem; font-weight: 600; }
+.saving-pos { color: var(--accent-mint); font-size: 0.82rem; font-weight: 600; }
+
+/* ── Similar Procedures ── */
+.similar-hint { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; }
+.similar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.similar-card { border: 1px solid var(--border-subtle); border-radius: 10px; padding: 1.1rem; text-decoration: none; color: var(--text-primary); display: block; background: var(--bg-surface); box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: all 0.2s ease; }
+.similar-card:hover { border-color: var(--accent-mint); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); background: rgba(0,230,118,0.03); }
+.similar-card-name  { font-family: var(--font-display); font-weight: 600; font-size: 0.92rem; margin-bottom: 6px; color: var(--text-primary); }
+.similar-card-price { font-size: 1.05rem; font-weight: 700; color: var(--accent-mint); }
+.similar-card-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+
+/* ── Calculator ── */
+.calc-hint { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem; }
+.calc-form { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 1.4rem; }
+.calc-row { display: flex; flex-direction: column; gap: 6px; }
+.calc-row label { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* Micro-bounce focus rings */
+.calc-input { padding: 10px 14px; border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.03); color: var(--text-primary); border-radius: 8px; font-size: 0.95rem; outline: none; width: 100%; transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.calc-input:focus { border-color: var(--accent-mint); box-shadow: 0 0 0 2px #0a0e14, 0 0 0 4px rgba(0,230,118,0.4); transform: scale(1.01); background: rgba(255,255,255,0.05); }
+
+/* ── SVG Budget Gauge ── */
+.budget-gauge-wrap { display: flex; flex-direction: column; align-items: center; padding: 1.2rem 0 0.8rem; }
+.budget-gauge-track { fill: none; stroke: rgba(255,255,255,0.06); stroke-linecap: round; }
+.budget-gauge-fill  { fill: none; stroke-linecap: round; transition: stroke-dashoffset 350ms cubic-bezier(0.16, 1, 0.3, 1), stroke 350ms ease; }
+.budget-gauge-label { font-family: var(--font-display); font-size: 0.76rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 6px; }
+.budget-gauge-total { font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; color: var(--text-primary); margin: 2px 0; }
+.budget-gauge-status { font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-top: 4px; }
+
+[data-budget-status="within-cghs"] .budget-gauge-fill   { stroke: #00e676; }
+[data-budget-status="within-cghs"] .budget-gauge-status { background: rgba(0,230,118,0.12); color: #00e676; border: 1px solid rgba(0,230,118,0.25); }
+[data-budget-status="market-avg"]  .budget-gauge-fill   { stroke: #00b8d4; }
+[data-budget-status="market-avg"]  .budget-gauge-status { background: rgba(0,184,212,0.12);  color: #00b8d4; border: 1px solid rgba(0,184,212,0.25); }
+[data-budget-status="high-markup"] .budget-gauge-fill   { stroke: #ff5252; }
+[data-budget-status="high-markup"] .budget-gauge-status { background: rgba(255,82,82,0.12);  color: #ff5252; border: 1px solid rgba(255,82,82,0.25); }
+
+/* ── Animated Breakdown Drawer ── */
+.calc-breakdown { border-top: 1px solid var(--border-subtle); margin-top: 1rem; overflow: hidden; max-height: 0; opacity: 0; transition: max-height 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 280ms ease; }
+.calc-breakdown.open { max-height: 300px; opacity: 1; }
+.breakdown-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.88rem; color: var(--text-muted); }
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-row strong { color: var(--text-primary); font-weight: 700; }
+.breakdown-total { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 4px; font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
+.breakdown-total-value { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--accent-mint); text-shadow: 0 0 12px rgba(0,230,118,0.2); }

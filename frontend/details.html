@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Procedure Details — MedPrice</title>
+  <meta name="description" content="View detailed pricing, hospital comparisons, and similar alternatives for any CGHS-benchmarked medical procedure."/>
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/details.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Med<span>Price</span></a>
+    <form class="nav-search" id="nav-search-form" autocomplete="off">
+      <div class="nav-search-wrap">
+        <input type="text" id="nav-q" placeholder="Search procedure…" autocomplete="off"/>
+        <div id="nav-autocomplete-dropdown" class="ac-dropdown" style="display:none"></div>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="results.html">Browse</a>
+      <a href="compare.html">Compare</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- breadcrumb -->
+    <nav class="breadcrumb" id="breadcrumb" aria-label="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="bc-sep">›</span>
+      <a href="results.html">Browse</a>
+      <span class="bc-sep">›</span>
+      <span id="bc-current" class="bc-current">Loading…</span>
+    </nav>
+
+    <!-- back button -->
+    <button class="back-btn" onclick="history.back()">← Back to results</button>
+
+    <!-- loading / error states -->
+    <div id="loader" class="loading"><div class="spinner"></div><p>Loading procedure…</p></div>
+    <div id="error-msg" class="error-msg"></div>
+
+    <!-- main content — hidden until data loads -->
+    <div id="detail-content" style="display:none">
+
+      <!-- header card -->
+      <div class="card detail-header">
+        <div id="detail-badges"></div>
+        <h1 id="detail-title" class="detail-title"></h1>
+        <div id="detail-official" class="detail-official"></div>
+        <p id="detail-desc" class="detail-desc"></p>
+        <div id="detail-meta-grid" class="detail-meta-grid"></div>
+      </div>
+
+      <!-- insight box -->
+      <div class="card insight-box" id="insight-box"></div>
+
+      <!-- hospital price table -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+          <div class="section-label" style="margin-bottom: 0;">Hospital Price Comparison</div>
+          
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="hosp-city-filter" style="font-size: 0.85rem; color: #475569; font-weight: 500;">Filter by City:</label>
+            <select id="hosp-city-filter" class="sort-select" style="padding: 4px 8px; font-size: 0.85rem; width: auto; height: auto;">
+              <option value="">All Cities</option>
+              <option value="Delhi">Delhi NCR</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Bangalore">Bangalore</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Kolkata">Kolkata</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="hosp-table-wrap">
+          <table class="hosp-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Hospital</th>
+                <th>Type</th>
+                <th>City</th>
+                <th>Rating</th>
+                <th>Price</th>
+                <th>Markup</th>
+                <th>vs CGHS</th>
+                <th>Map</th>
+              </tr>
+            </thead>
+            <tbody id="hospital-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- similar procedures -->
+      <div id="similar-section" class="card" style="display:none">
+        <div class="section-label">🔁 Similar Procedures in this Category</div>
+        <p class="similar-hint">Other procedures with comparable CGHS rates — useful for cost planning.</p>
+        <div id="similar-grid" class="similar-grid"></div>
+      </div>
+
+      <!-- cost-per-dosage calculator -->
+      <div class="card" id="calc-card">
+        <div class="section-label">💊 Cost-per-Dosage Calculator</div>
+        <p class="calc-hint">Estimate the total out-of-pocket cost for a full treatment course.</p>
+
+        <div class="calc-form">
+          <div class="calc-row">
+            <label for="calc-total-cost">Total cost of package (₹)</label>
+            <input type="number" id="calc-total-cost" class="calc-input" placeholder="e.g. 2500" min="0"/>
+          </div>
+          <div class="calc-row">
+            <label for="calc-units">Units / tablets in package</label>
+            <input type="number" id="calc-units" class="calc-input" placeholder="e.g. 10" min="1"/>
+          </div>
+          <div class="calc-row">
+            <label for="calc-doses-per-day">Prescribed doses per day</label>
+            <input type="number" id="calc-doses-per-day" class="calc-input" placeholder="e.g. 2" min="1"/>
+          </div>
+          <div class="calc-row">
+            <label for="calc-days">Treatment duration (days)</label>
+            <input type="number" id="calc-days" class="calc-input" placeholder="e.g. 21" min="1"/>
+          </div>
+        </div>
+
+        <div id="calc-result" class="calc-result-box" style="display:none"></div>
+      </div>
+
+    </div><!-- end #detail-content -->
+
+  </div><!-- end .page -->
+
+  <footer>Data from CGHS rate schedules. For reference only — verify with your hospital.</footer>
+
+  <script src="js/pageload.js"></script>
+  <script src="js/mascot.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/nav-search.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/details.js"></script>
+</body>
+</html>

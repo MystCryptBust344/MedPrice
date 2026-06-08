@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — MedPrice</title>
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/dashboard.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Med<span>Price</span></a>
+    <form class="nav-search" id="nav-search-form" autocomplete="off">
+      <div class="nav-search-wrap">
+        <input type="text" id="nav-q" placeholder="Search procedure…" autocomplete="off"/>
+        <div id="nav-autocomplete-dropdown" class="ac-dropdown" style="display:none"></div>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="results.html">Browse</a>
+      <a href="compare.html">Compare</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <h1 class="page-title">Price Intelligence Dashboard</h1>
+    <p class="page-sub">Overview of CGHS benchmarks and hospital markups</p>
+
+    <div id="loader" class="loading"><div class="spinner"></div></div>
+    <div id="error-msg" class="error-msg"></div>
+
+    <div id="dash-content" style="display:none">
+
+      <!-- stat cards -->
+      <div class="stats-grid" id="stats-grid"></div>
+
+      <div class="dash-grid">
+
+        <!-- by category -->
+        <div class="card">
+          <div class="section-label">Procedures by Category</div>
+          <div id="category-bars"></div>
+        </div>
+
+        <!-- most expensive -->
+        <div class="card">
+          <div class="section-label">Most Expensive (CGHS Rate)</div>
+          <div id="most-expensive"></div>
+        </div>
+
+        <!-- avg by category -->
+        <div class="card">
+          <div class="section-label">Average CGHS Rate by Category</div>
+          <div id="avg-by-category"></div>
+        </div>
+
+        <!-- hospitals -->
+        <div class="card">
+          <div class="section-label">Hospitals by Procedure Count</div>
+          <div id="hospital-list"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Data from CGHS rate schedules. For reference only.</footer>
+
+  <script src="js/pageload.js"></script>
+  <script src="js/mascot.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/nav-search.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
