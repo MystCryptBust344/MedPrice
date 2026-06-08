@@ -33,6 +33,7 @@ app.use(cors({
     // Allow server-to-server requests (no Origin header) and same-origin requests
     if (!origin) return callback(null, true)
     if (LOCAL_ORIGIN_RE.test(origin)) return callback(null, true)
+    if (prodOrigins.includes('*')) return callback(null, true)
     if (prodOrigins.includes(origin)) return callback(null, true)
     callback(new Error('CORS: origin not allowed — ' + origin))
   },
