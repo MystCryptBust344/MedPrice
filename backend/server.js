@@ -4,7 +4,7 @@ const cors          = require('cors')
 const cookieParser  = require('cookie-parser')
 const dotenv        = require('dotenv')
 const connectDB     = require('./config/db')
-const errorHandler  = require('./middleware/errorHandler')
+const errorHandler  = require('./middleware/errorhandler')
 const sessionMiddleware = require('./middleware/session')
 
 const procedureRoutes = require('./routes/procedureRoutes')
